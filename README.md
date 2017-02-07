@@ -8,8 +8,6 @@ a to generic proposal
 
 	package pkg
 
-	generic A struct
-
 	module List (EType) {
 		type List struct {
 			head *Element
