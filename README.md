@@ -1,6 +1,6 @@
 # gomodule
 
-a to generic proposal
+a go generic proposal
 
 # demo
 
