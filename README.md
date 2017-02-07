@@ -8,8 +8,6 @@ a to generic proposal
 
 	package pkg
 
-	import "io"
-
 	generic A struct
 
 	module List (EType) {
