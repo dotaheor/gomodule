@@ -2,6 +2,12 @@
 
 a go generic proposal
 
+# syntax
+
+**module** *module_name* (generic type list) (generic type reqirements) {implementations}
+
+**generic type reqirements** is optional, and maybe it can be deduced from the implementations.
+
 # demo
 
 	// pkg.go
@@ -140,7 +146,7 @@ a go generic proposal
 			e = i.Next()
 		}
 		
-		mobule sort = pkg.Sort(*)
+		mobule sort = pkg.Sort(*) // here * means letting compiler deduce it automically
 		
 		sort.SortList(il)
 	}
