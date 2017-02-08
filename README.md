@@ -51,10 +51,11 @@ a go generic proposal
 	}
 
 	module Sort (EType)(
-		EType in [int, string]
+		EType in [Interger, Float, string]
 	) {
 		func SortSlice(slc []EType) {
 			// ...
+			// interger, float and string types support < comparison
 		}
 		
 		module list = List(EType)
