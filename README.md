@@ -164,7 +164,7 @@ a go generic proposal
 	}
 
 	func f4(params []string) []interface{} {
-		module convert = pkg.Convert(*, *})
+		module convert = pkg.Convert(*, *)
 		
 		return convert.ConvertSlice(params)
 	}
