@@ -14,7 +14,7 @@ a go generic proposal
 
 	package pkg
 
-	module List (EType) {
+	module List (EType type) {
 		type List struct {
 			head *Element
 			tail *Element
@@ -50,7 +50,7 @@ a go generic proposal
 		}
 	}
 
-	module Sort (EType)(
+	module Sort (EType type)(
 		EType in [Interger, Float, string]
 	) {
 		func SortSlice(slc []EType) {
@@ -64,13 +64,13 @@ a go generic proposal
 		}
 	}
 
-	module Channel (EType) {
+	module Channel (EType type) {
 		func Merge(chs ...[]chan<- EType) <-chan EType {
 			// ...
 		}
 	}
 
-	module ConvertWithFunc (T1, T2) {
+	module ConvertWithFunc (T1, T2 type) {
 		func ConvertSlice(t1s []T1, f func(T1)T2) []T2 {
 			t2s := make([]T2, len(t1s))
 			for i, t1 := range t1s {
@@ -80,7 +80,7 @@ a go generic proposal
 		}
 	}
 
-	module Convert (T1, T2)(
+	module Convert (T1, T2 type)(
 		T1 -> T2, // T1 is convertable to T2
 	) {
 		func ConvertSlice(t1s []T1) []T2 {
@@ -92,7 +92,7 @@ a go generic proposal
 		}
 	}
 
-	module Assertion (I, T)(
+	module Assertion (I, T type)(
 		I is interface,
 		T implements I,
 	) {
@@ -105,7 +105,7 @@ a go generic proposal
 		}
 	}
 
-	module String (T)(
+	module String (T type)(
 		T implements interface{String() string},
 	) {
 		func ToStrings(ts []T) []string {
@@ -117,7 +117,7 @@ a go generic proposal
 		}
 	}
 
-	moudle Range (CType)(
+	moudle Range (CType type)(
 		CType is [map, slice, *array],
 		CType.ElementType is numeric,
 	) {
@@ -127,6 +127,15 @@ a go generic proposal
 			}
 		}
 	}
+
+	// generic const
+	module ConstDemo (KeyType, EType type, InitialSize const) {
+		func NewMap() map[KeyType]EType {
+			return make(map[KeyType]EType, InitialSize)
+		}
+	}
+
+	// todo: support generic import and generic var?
 
 	==============================
 
