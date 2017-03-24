@@ -156,13 +156,13 @@ a go generic proposal
 			e = i.Next()
 		}
 		
-		mobule sort = pkg.Sort(*) // here * means letting compiler deduce it automically
+		module sort = pkg.Sort(*) // here * means letting compiler deduce it automically
 		
 		sort.SortList(il)
 	}
 
 	func f2(values []string) {
-		mobule sort = pkg.Sort(*)
+		module sort = pkg.Sort(*)
 		
 		sort.SortSlice(values)
 	}
