@@ -4,9 +4,11 @@ a go generic proposal
 
 # syntax
 
-**module** *module_name* (generic type list) (generic type reqirements) {implementations}
+**module** *module_name* {generic type list} (generic type reqirements) {implementations}
 
 **generic type reqirements** is optional, and maybe it can be deduced from the implementations.
+
+modules can be imported locally.
 
 # demo
 
@@ -14,7 +16,7 @@ a go generic proposal
 
 	package pkg
 
-	module List (EType type) {
+	module List {EType type} {
 		type List struct {
 			head *Element
 			tail *Element
@@ -50,7 +52,7 @@ a go generic proposal
 		}
 	}
 
-	module Sort (EType type)(
+	module Sort {EType type}(
 		EType in [Interger, Float, string]
 	) {
 		func SortSlice(slc []EType) {
@@ -64,13 +66,13 @@ a go generic proposal
 		}
 	}
 
-	module Channel (EType type) {
+	module Channel {EType type} {
 		func Merge(chs ...[]chan<- EType) <-chan EType {
 			// ...
 		}
 	}
 
-	module ConvertWithFunc (T1, T2 type) {
+	module ConvertWithFunc {T1, T2 type} {
 		func ConvertSlice(t1s []T1, f func(T1)T2) []T2 {
 			t2s := make([]T2, len(t1s))
 			for i, t1 := range t1s {
@@ -80,7 +82,7 @@ a go generic proposal
 		}
 	}
 
-	module Convert (T1, T2 type)(
+	module Convert {T1, T2 type}(
 		T1 -> T2, // T1 is convertable to T2
 	) {
 		func ConvertSlice(t1s []T1) []T2 {
@@ -92,7 +94,7 @@ a go generic proposal
 		}
 	}
 
-	module Assertion (I, T type)(
+	module Assertion {I, T type}(
 		I is interface,
 		T implements I,
 	) {
@@ -105,7 +107,7 @@ a go generic proposal
 		}
 	}
 
-	module String (T type)(
+	module String {T type}(
 		T implements interface{String() string},
 	) {
 		func ToStrings(ts []T) []string {
@@ -117,7 +119,7 @@ a go generic proposal
 		}
 	}
 
-	moudle Range (CType type)(
+	moudle Range {CType type}(
 		CType is [map, slice, *array],
 		CType.ElementType is numeric,
 	) {
@@ -129,13 +131,13 @@ a go generic proposal
 	}
 
 	// generic const
-	module ConstDemo (KeyType, EType type, InitialSize const) {
+	module ConstDemo {KeyType, EType type, InitialSize const} {
 		func NewMap() map[KeyType]EType {
 			return make(map[KeyType]EType, InitialSize)
 		}
 	}
 
-	// todo: support generic import and generic var?
+	// todo: support generic import and generic var and generic func?
 
 	==============================
 
@@ -146,7 +148,7 @@ a go generic proposal
 	import "pkg"
 
 	func f1() {
-		module list = pkg.List(Int)
+		import list = pkg.List(Int)
 		
 		var il ntList.List
 		e := il.Append(1)
@@ -156,37 +158,37 @@ a go generic proposal
 			e = i.Next()
 		}
 		
-		module sort = pkg.Sort(*) // here * means letting compiler deduce it automically
+		import sort = pkg.Sort(*) // here * means letting compiler deduce it automically
 		
 		sort.SortList(il)
 	}
 
 	func f2(values []string) {
-		module sort = pkg.Sort(*)
+		import sort = pkg.Sort(*)
 		
 		sort.SortSlice(values)
 	}
 
 	func f3(chs ...[]chan int) <-chan int {
-		module channel = pkg.Channel(*)
+		import channel = pkg.Channel(*)
 		
 		return channel.Merge(chs...)
 	}
 
 	func f4(params []string) []interface{} {
-		module convert = pkg.Convert(*, *)
+		import convert = pkg.Convert(*, *)
 		
 		return convert.ConvertSlice(params)
 	}
 
 	func f5(values []interface{}) []string {
-		module assertion = pkg.Assertion(*, *)
+		import assertion = pkg.Assertion(*, *)
 		
 		return assertion.AssertSlice(values)
 	}
 
 	func f6(s []int, m map[string]float64, a *[100]complex128) {
-		module range = pkg.Range(*)
+		import range = pkg.Range(*)
 		
 		range.DoubleAll(s)
 		range.DoubleAll(m)
